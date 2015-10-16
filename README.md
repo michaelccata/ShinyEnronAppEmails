@@ -26,7 +26,8 @@ Bagofwords_xxx
 - Direction of the message (Above, Below, Peer) in respect of the sender]
     
 
-Cleaned and prepared data sets in the repository
+**Cleaned and prepared data sets in the repository**
+
 - BagofWords_Internal -> emails sent from Enron employees
 - BagofWords_Total -> emails sent from anyone
 
@@ -35,5 +36,5 @@ The data is still stored at the individual and message direction level but conte
 
 ## About the Scripts 
 I've provided both the Shiny App folder and the stand-alone R analysis for folks interested in each of those usages.
--Enronapp -> former (includes relevant data in the folder)
--R_Only_Analysis -> latter 
+- Enronapp -> former (includes relevant data in the folder)
+- R_Only_Analysis -> latter 

@@ -4,4 +4,4 @@ The data was spread over four tables so I configured a custom table useful for b
 
 Original data obtained through http://bailando.sims.berkeley.edu/enron_email.html
 
-Cleaned and prepared data sets in directory.
+Cleaned and prepared data sets in the repository.

@@ -1,4 +1,7 @@
 ### This file is the end-to-end instructions for conducting the analysis in R without deploying to Shiny
+### The code will pull both "Internal" only emails from the CSV and the broader dataset "Total"
+### App uses "Internal" as the data has higher integrity. I
+### If using "Total" you'll need to configure the hier levels to reflect NAs for emails from outside the firm
 
 ### Packages
 install.packages("shiny")

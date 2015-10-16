@@ -1,3 +1,5 @@
+### This file is the end-to-end instructions for conducting the analysis in R without deploying to Shiny
+
 ### Packages
 install.packages("shiny")
 install.packages(data.table)
@@ -12,19 +14,19 @@ install.packages("qdap")
 install.packages('devtools')
 devtools::install_github('rstudio/shinyapps')
 
-shinyapps::setAccountInfo(name='michaelc',
-                          token='289F5936FE40A233780217BD9A48EB36',
-                          secret='1xNNfbKsq8sCcUHhb03VcIbJAQeblQa4MosLYaq/')
+shinyapps::setAccountInfo(name='your_username',
+                          token='your_token',
+                          secret='your_secretkey')
 
 
-shinyapps::deployApp('/Users/michaelcata/Documents/Enron/Enronapp')
+shinyapps::deployApp('path_to_your_folder')
 
 
 
 ####### PULLING + CLEANING
 ### Load File
-enronpool <- read.csv("/Users/michaelcata/Documents/Enron/EnronBagofWordsInternal.csv",check.names=FALSE)
-enronpool2 <- read.csv("/Users/michaelcata/Documents/Enron/EnronBagofWords_Total.csv",check.names=FALSE)
+enronpool <- read.csv("your_path_to_/EnronBagofWordsInternal.csv",check.names=FALSE)
+enronpool2 <- read.csv("your_path_to_/EnronBagofWords_Total.csv",check.names=FALSE)
 
 
 ## Change Text Column Name

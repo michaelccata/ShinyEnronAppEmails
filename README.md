@@ -13,7 +13,7 @@ SQL data stored as separate tables:
 [Recipients: Message ID, Date, Recipients]
 [Directory: Name of person, Email Addresses, Position in the Company]
 
->>>>>>> I transformed that into (sketchy SQL munging queries included in the repository) <<<<<<<<<
+I transformed that into (sketchy SQL munging queries included in the repository) 
 
 [Bagofwords_xxx: 
     Message ID, 

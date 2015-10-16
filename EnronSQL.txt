@@ -1,0 +1,206 @@
+##MySQL Musings and Functions
+
+
+to do: 
+- replace nulls in analysis2 with N/A and re-run messageanalysis 
+- group recipientsmag3 by message id and average the tenure
+- join recipientsmag3 + messageanalysis
+- group (pool) by date and average the tenure
+- export to r for metrics variable creation
+
+——————————
+changing reserved name
+###ALTER TABLE analysis2
+CHANGE `date` newdate varchar(75)
+
+ALTER TABLE analysis2
+CHANGE `status` hier varchar(75)
+______________________________
+
+obtain table characteristics including data type and primary keys
+
+### describe messageanalysis
+
+______________________________
+
+add a primary key
+
+UPDATE messageanalysis ADD PRIMARY KEY (mid) 
+UPDATE recipients ADD PRIMARY KEY (mid)
+
+——————————
+
+Stripping out time from date time
+
+###ALTER TABLE analysis2 CHANGE newdate newdate DATE;
+
+________________
+
+Change column data type 
+
+###ALTER TABLE messageanalysis MODIFY direct varchar(15)
+
+——————————  
+Adding title score columns
+
+#### for recipients #### create table recipientsmag3 select mid, rtype, rvalue, title, legend.mag
+from recipient stats
+left join legend 
+on status = title
+
+
+##### for messages ##### create table messageanalysis select mid, sender, newdate, subject, body, hier, classification, legend.mag
+from analysis2
+left join legend 
+on hier = title
+————————————— 
+
+Joining the messages table with the recipient scores
+
+##### UPDATE messageanalysis
+INNER JOIN recipients
+    ON messageanalysis.mid = recipients.mid
+SET messageanalysis.rec_mag = recipients.recip_mag
+
+—————————————— 
+
+Creating the “vector” or direction column determining where the message is going
+
+UPDATE messageanalysis 
+SET direct = IF((sender_mag - rec_mag) > 0, 'Below', IF((sender_mag - rec_mag) < 0, 'Above', 'Peer')) WHERE (sender_mag - rec_mag) IS NOT NULL
+
+_____________________________
+
+
+Join for the two major tables
+
+######CREATE TABLE analysis SELECT sender, newdate, subject, body, hier, classification, sender_mag, recip_mag
+FROM messageanalysis
+INNER JOIN recipients
+on messageanalysis.mid = recipients.mid 
+WHERE newdate BETWEEN '1990-01-01' AND '2010-08-010 23:59:59'
+ORDER BY newdate
+——————————————————
+
+Select for the two major tables
+
+###SELECT messageanalysis.mid, sender, newdate, subject, body, hier, classification, sender_mag
+FROM messageanalysis
+INNER JOIN recipients
+on messageanalysis.mid = recipients.mid
+WHERE newdate BETWEEN '1990-01-01' AND '2010-08-010 23:59:59' AND length(hier)>1
+limit 0,1000000
+
+——————————— 
+Select after *message analysis* was complete
+
+###SELECT messageanalysis.mid, sender, newdate, concat(subject), concat(body), hier, classification, direct
+FROM messageanalysis
+INNER JOIN recipients
+on messageanalysis.mid = recipients.mid
+WHERE length(direct) >0 ## toggle for broader view including emails sent from the outside AND newdate BETWEEN '1990-01-01' AND '2010-08-010 23:59:59'  
+GROUP BY newdate, hier, direct
+limit 0,1000000
+_________________________________
+
+
+CREATE TABLE analysis2 SELECT mid, sender, date, subject, body, status 
+from message
+left join employeelist
+on sender = Email_ID or sender = Email2 or sender = Email3 or sender = Email4
+
+
+alter table analysis2 add classification varchar(50) 
+
+
+
+---  
++++  
+@@ -2,0 +2,3 @@
++innodb_log_file_size = 7864320
++innodb_buffer_pool_size = 134217728
++innodb_log_buffer_size = 1572864
+
+update analysis2
+SET classification = "External"
+Where sender not like "%@enron.com%" 
+
+
+update analysis2
+SET classification = "Enron"
+Where sender like "%@enron.com%" 
+
+
+update analysis2 
+set questioncount = (length(body) - length(replace(body,'?',''))) + (length(subject) - length(replace(subject,'?','')))
+
+update analysis2 
+set questioncounts = (length(subject) - length(replace(subject,'?','')))
+
+update analysis2 
+set newdate = date(analysis2.date)
+
+update analysis2
+set status = 'N/A' where status is null 
+
+
+CREATE TABLE AnalysisSummary2
+SELECT mid, newdate, status, classification, questioncount, questioncounts, questioncountb
+FROM analysis2
+
+select status,newdate,sum(questioncount),sum(questioncounts),sum(questioncountb) from AnalysisSummary2 where year(newdate)>1990 group by newdate,status 
+
+
+CREATE TABLE SummaryStatusSimple
+select status,newdate,sum(questioncount) from AnalysisSummary2 where year(newdate)>1990 group by newdate,status 
+
+
+CREATE TABLE SummaryStatusSimple2
+select status,newdate,sum(questioncount) from AnalysisSummary2 where year(newdate)>1990 group by month(newdate),status
+
+CREATE TABLE analysis SELECT mid, sender, date, subject, body, status 
+from message
+left join employeelist
+on sender = Email_ID or sender = Email2 or sender = Email3 or sender = Email4
+
+
+alter table analysis add classification varchar(50) 
+
+
+update analysis
+SET classification = "External"
+Where sender not like "%@enron.com%" 
+
+
+update analysis
+SET classification = "Enron"
+Where sender like "%@enron.com%" 
+
+
+update analysis 
+set questioncount = (length(body) - length(replace(body,'?',''))) + (length(subject) - length(replace(subject,'?','')))
+
+update analysis
+set questioncounts = (length(subject) - length(replace(subject,'?','')))
+
+update analysis
+set newdate = date(analysis2.date)
+
+update analysis
+set status = 'N/A' where status is null 
+
+
+CREATE TABLE AnalysisSummary2
+SELECT mid, newdate, status, classification, questioncount, questioncounts, questioncountb
+FROM analysis2
+
+select status,newdate,sum(questioncount),sum(questioncounts),sum(questioncountb) from AnalysisSummary2 where year(newdate)>1990 group by newdate,status 
+
+
+CREATE TABLE SummaryStatusSimple
+select status,newdate,sum(questioncount) from AnalysisSummary2 where year(newdate)>1990 group by newdate,status 
+
+
+CREATE TABLE SummaryStatusSimple2
+select status,newdate,sum(questioncount) from AnalysisSummary2 where year(newdate)>1990 group by month(newdate),status
+ 

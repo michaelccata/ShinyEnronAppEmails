@@ -7,15 +7,18 @@ Primary data was spread over four tables. I configured a custom table useful for
 ## About the Data
 Original data obtained through http://bailando.sims.berkeley.edu/enron_email.html
 
-SQL data stored as separate tables:
+SQL data stored as separate tables ->
 
-[Message: Message ID, Sender, Date, Body, other fields]
-[Recipients: Message ID, Date, Recipients]
-[Directory: Name of person, Email Addresses, Position in the Company]
+Message - Message ID, Sender, Date, Body, other fields
 
--> I transformed that into (sketchy SQL munging queries included in the repository) 
+Recipients - Message ID, Date, Recipients
 
-Bagofwords_xxx: 
+Directory - Name of person, Email Addresses, Position in the Company
+
+
+I transformed that into (sketchy SQL munging queries included in the repository) 
+
+Bagofwords_xxx
     Message ID, 
     Sender, 
     Date, 

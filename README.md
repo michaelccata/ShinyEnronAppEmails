@@ -16,17 +16,19 @@ Recipients - Message ID, Date, Recipients
 Directory - Name of person, Email Addresses, Position in the Company
 
 
-
-*I transformed that into (sketchy SQL munging queries included in the repository)*\
-
+>I transformed that into (sketchy SQL munging queries included in the repository)
 
 Bagofwords_xxx
-[Message ID, Sender, Date, Daily Aggregated Email Content (subject + body), Position of the Person, Classification as Enron employee (irrelevant for "Internal" data-set),Direction of the message (Above, Below, Peer) in respect of the sender]
+>Message ID
+>Sender, Date, Daily Aggregated Email Content (subject + body)
+>Position of the Person
+>Classification as Enron employee (irrelevant for "Internal" data-set)
+>Direction of the message (Above, Below, Peer) in respect of the sender]
     
 
-*Cleaned and prepared data sets in the repository:*
-BagofWords_Internal -> emails sent from Enron employees
-BagofWords_Total -> emails sent from anyone
+Cleaned and prepared data sets in the repository
+>BagofWords_Internal -> emails sent from Enron employees
+>BagofWords_Total -> emails sent from anyone
 
 The data is still stored at the individual and message direction level but content is aggregated by day. Message direction was set by a weighted average of the recipients' level in the organization. For example: if a lower level employee sends a message to a peer and a superior, their weighted average would demonstrate a message "above" their position in the organization. This heuristic is based on anecdotal and some empirical research that suggests including superiors in communication implies an intention of communicating for the purposes of oversight or permission.
 

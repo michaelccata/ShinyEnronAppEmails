@@ -16,15 +16,12 @@ Recipients - Message ID, Date, Recipients
 Directory - Name of person, Email Addresses, Position in the Company
 
 
-I transformed that into (sketchy SQL munging queries included in the repository) 
+
+*I transformed that into (sketchy SQL munging queries included in the repository)*\
+
 
 Bagofwords_xxx
-
-[Message ID, Sender, Date, Daily Aggregated Email Content (subject + body), 
-
-Position of the Person, Classification as Enron employee (irrelevant for "Internal" data-set), 
-
-Direction of the message (Above, Below, Peer) in respect of the sender]
+[Message ID, Sender, Date, Daily Aggregated Email Content (subject + body), Position of the Person, Classification as Enron employee (irrelevant for "Internal" data-set),Direction of the message (Above, Below, Peer) in respect of the sender]
     
 
 *Cleaned and prepared data sets in the repository:*

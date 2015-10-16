@@ -17,7 +17,12 @@ shinyServer(function(input, output) {
     
     enronpool$trend <- (str_count(enronpool$texte, string))/(str_count(enronpool$text,"\\S+"))  
     
-    ggplot(enronpool, aes(newdate,trend))+facet_grid(direct~hier, scales="fixed")+geom_smooth(aes(group=hier, color=hier),breaks=FALSE)+theme(legend.position="none")+labs(x='Mid 1998 - Late 2002',y="Frequency of Keywords")+geom_rect(aes(xmin='2001-08-22', xmax='2001-09-02', ymin=0,ymax=+Inf), alpha=0.2, fill="grey")+ylim(-.01,.035)})
+    ggplot(enronpool, aes(newdate,trend))+
+      facet_grid(direct~hier, scales="fixed")+
+      geom_smooth(aes(group=hier, color=hier),breaks=FALSE)+
+      theme(legend.position="none")+
+      labs(x='Mid 1998 - Late 2002',y="Frequency of Keywords")+
+      geom_rect(aes(xmin='2001-08-22', xmax='2001-09-02', ymin=0,ymax=+Inf), alpha=0.2, fill="grey")+ylim(-.01,.035)})
   
   })
 

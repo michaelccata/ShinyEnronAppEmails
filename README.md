@@ -5,9 +5,9 @@ This small application is the sample result of a larger side project (read: rabb
 Primary data was spread over four tables. I configured a custom table useful for basic (read: not graph or noSQL) analysis. After staging the data, I imported into R where I calculate term frequency, plotted with ggplot2, and deployed with Shiny.
 
 ## About the Data
-Original data obtained through http://bailando.sims.berkeley.edu/enron_email.html
+**Original data obtained through** http://bailando.sims.berkeley.edu/enron_email.html
 
-SQL data stored as separate tables ->
+**SQL data stored as separate tables ->**
 
 Message - Message ID, Sender, Date, Body, other fields
 
